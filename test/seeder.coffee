@@ -1,4 +1,15 @@
 describe 'seeder', ->
+  before ->
+    knex.schema.createTable 'users', (table) ->
+      console.log 'CREATE TABLE'
+      # Always called.
+      table.increments('id').primary()
+      table.string('name')
+      table.string('address')
+
+  after ->
+    knex.destroy()
+
   context 'when 2 lines of csv file', ->
     beforeEach ->
       @timeout 10000
